@@ -6,6 +6,29 @@
  */
 
 /*
+ * last_language(..):
+ *
+ * Returns the last element in the vector.
+ *
+ * Rust assumes the returned ref is tied to the only arg.
+ * You could add in lifetime annotations, but they are not required.
+ * We have to think about annotations anytime your function receives a ref and
+ * returns a ref.
+ * Omitting lifetime annotations is referred to as *elision*, from the English
+ * verb "to elide".
+ * Examples:
+ *   - "I *removed* the lifetime annotations" -> "I *elided" the lifeline
+ * annotations";
+ *   - "We can *remove* the annotations" -> "We can *elide* the annotations";
+ *   - "Think about *removal* of the annotations" -> "Think about *elision* of
+ *   the annotations".
+ */
+fn last_language(languages: &[String]) -> &str {
+//fn last_language<'a>(languages: &'a [String]) -> &'a str {
+    languages.last().unwrap()
+}
+
+/*
  * next_language(..):
  *
  * Finds a given language and returns the next one.
@@ -44,19 +67,15 @@ fn next_language<'a>(languages: &'a [String], current: &str) -> &'a str {
  * Main Function *
  *****************/
 fn main() {
-    let result;
+    let languages = vec![
+        String::from("rust"),
+        String::from("go"),
+        String::from("typescript"),
+    ];
 
-    {
-        let languages = vec![
-            String::from("rust"),
-            String::from("go"),
-            String::from("typescript"),
-        ];
+    //let result = next_language(&languages, "go");
 
-        result = next_language(&languages, "go");
-
-        // 'languages' goes out of scope, value is dropped!
-    }
+    let result = last_language(&languages);
 
     println!("{}", result);
 }
