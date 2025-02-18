@@ -29,6 +29,19 @@ fn last_language(languages: &[String]) -> &str {
 }
 
 /*
+ * longest_language(..):
+ *
+ * Returns the longer of two languages.
+ */
+fn longest_language<'a>(language_1: &'a str, language_2: &'a str) -> &'a str {
+    if language_1.len() >= language_2.len() {
+        language_1
+    } else {
+        language_2
+    }
+}
+
+/*
  * next_language(..):
  *
  * Finds a given language and returns the next one.
@@ -75,7 +88,9 @@ fn main() {
 
     //let result = next_language(&languages, "go");
 
-    let result = last_language(&languages);
+    //let result = last_language(&languages);
+
+    let result = longest_language("go", "typescript");
 
     println!("{}", result);
 }
